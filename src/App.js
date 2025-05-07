@@ -4,6 +4,8 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { MenuProvider } from './context/MenuContext';
 import { OrderProvider } from './context/OrderContext';
 import { UserProvider } from './context/UserContext';
+import { OrderTrackingProvider } from './context/OrderTrackingContext';
+import OrderTracker from './components/OrderTracker';
 
 // Lazy load components
 const HomePage = lazy(() => import('./components/HomePage'));
@@ -39,10 +41,12 @@ function App() {
     <MenuProvider>
       <OrderProvider>
         <UserProvider>
-          <BrowserRouter>
-            <div className="App">
-              <Suspense fallback={<div className="loading">Loading...</div>}>
-                <Routes>
+          <OrderTrackingProvider>
+            <BrowserRouter>
+              <div className="App">
+                <OrderTracker />
+                <Suspense fallback={<div className="loading">Loading...</div>}>
+                  <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/menu" element={<MenuPage cart={cart} setCart={setCart} />} />
               <Route path="/cart" element={<CartPage cart={cart} setCart={setCart} />} />
@@ -60,10 +64,11 @@ function App() {
               <Route path="/admin/analytics" element={<Analytics />} />
               <Route path="/admin/settings" element={<Settings />} />
               <Route path="/admin/notifications" element={<NotificationsPage />} />
-                </Routes>
-              </Suspense>
-            </div>
-          </BrowserRouter>
+                  </Routes>
+                </Suspense>
+              </div>
+            </BrowserRouter>
+          </OrderTrackingProvider>
         </UserProvider>
       </OrderProvider>
     </MenuProvider>
