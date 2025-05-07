@@ -1,0 +1,12 @@
+const calculateItemPrice = (item, itemAddOns) => {
+    let basePrice = item.price;
+    if (item.variants && item.id === 'b1') {
+      const selectedSize = selectedSizes[item.id] || 'Regular';
+      const variant = item.variants.find(v => v.size === selectedSize);
+      if (variant) basePrice = variant.price;
+    }
+    const addOnTotal = itemAddOns?.reduce((total, addOn) => {
+      return total + addOn.price;
+    }, 0) || 0;
+    return basePrice + addOnTotal;
+  };
