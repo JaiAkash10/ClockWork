@@ -5,16 +5,16 @@ import { MenuProvider } from './context/MenuContext';
 import { OrderProvider } from './context/OrderContext';
 import { UserProvider } from './context/UserContext';
 import { OrderTrackingProvider } from './context/OrderTrackingContext';
-import OrderTracker from './components/OrderTracker';
+import OrderTracker from './components/customer/OrderTracker';
 
 // Lazy load components
-const HomePage = lazy(() => import('./components/HomePage'));
-const MenuPage = lazy(() => import('./components/MenuPage'));
-const CartPage = lazy(() => import('./components/CartPage'));
-const ProfilePage = lazy(() => import('./components/ProfilePage'));
-const OrderConfirmationPage = lazy(() => import('./components/OrderConfirmationPage'));
-const ContactPage = lazy(() => import('./components/ContactPage'));
-const OrderHistoryPage = lazy(() => import('./components/OrderHistoryPage'));
+const HomePage = lazy(() => import('./components/customer/HomePage'));
+const MenuPage = lazy(() => import('./components/customer/MenuPage'));
+const CartPage = lazy(() => import('./components/customer/CartPage'));
+const ProfilePage = lazy(() => import('./components/customer/ProfilePage'));
+const OrderConfirmationPage = lazy(() => import('./components/customer/OrderConfirmationPage'));
+const ContactPage = lazy(() => import('./components/customer/ContactPage'));
+const OrderHistoryPage = lazy(() => import('./components/customer/OrderHistoryPage'));
 
 // Lazy load admin components
 const AdminDashboard = lazy(() => import('./components/admin/Dashboard'));

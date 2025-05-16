@@ -31,23 +31,17 @@ export const OrderTrackingProvider = ({ children }) => {
   const startOrderTracking = (orderId) => {
     const order = orders.find(order => order.id === orderId);
     if (order) {
-      // Calculate pickup time as current time + 30 minutes (preparation time)
-      const currentTime = new Date().getTime();
-      const preparationTimeMs = 30 * 60 * 1000; // 30 minutes in milliseconds
-      const calculatedPickupTime = new Date(currentTime + preparationTimeMs);
-      
-      // Update the order with the calculated pickup time
-      const updatedOrder = {
-        ...order,
-        pickupTime: calculatedPickupTime.toISOString()
-      };
-      
-      setActiveOrder(updatedOrder);
+      setActiveOrder(order);
       localStorage.setItem('activeOrderId', orderId);
       
-      // Set remaining time to preparation time (30 minutes)
-      setRemainingTime(preparationTimeMs);
-      localStorage.setItem('orderRemainingTime', preparationTimeMs.toString());
+      // Calculate remaining time (30 minutes from order time)
+      const orderTime = new Date(order.orderTime).getTime();
+      const pickupTime = new Date(order.pickupTime).getTime();
+      const currentTime = new Date().getTime();
+      const timeRemaining = Math.max(0, pickupTime - currentTime);
+      
+      setRemainingTime(timeRemaining);
+      localStorage.setItem('orderRemainingTime', timeRemaining.toString());
       
       setIsTimerActive(true);
       localStorage.setItem('orderTimerActive', 'true');

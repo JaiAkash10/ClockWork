@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useOrderTracking } from '../../context/OrderTrackingContext';
 import Draggable from 'react-draggable';
 import { useLocation } from 'react-router-dom';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 const OrderTracker = () => {
   const { 
@@ -19,6 +20,8 @@ const OrderTracker = () => {
   });
   
   const nodeRef = useRef(null);
+  const contentRef = useRef(null);
+  const windowSize = useWindowSize();
   // Move useLocation to the top level - not inside conditional
   const location = useLocation();
   
@@ -38,19 +41,47 @@ const OrderTracker = () => {
     }
   }, [location, activeOrder, isTimerActive]);
   
-  // Only hide if there's no active order
-  // We want to show the tracker on all pages when there's an active order
+  // Only hide if there's no active order, or if on an admin page
+  // We want to show the tracker on all non-admin pages when there's an active order
   // The tracker will persist until the order is completed by an admin
-  if (!activeOrder || !isTimerActive) {
+  const isAdminPage = location.pathname.startsWith('/admin');
+
+  if (!activeOrder || !isTimerActive || isAdminPage) {
     return null;
   }
   
+  // Function to ensure tracker stays within viewport boundaries
   const handleDragStop = (e, data) => {
-    setPosition({ x: data.x, y: data.y });
+    // Get tracker dimensions
+    const trackerWidth = nodeRef.current?.offsetWidth || 0;
+    const trackerHeight = nodeRef.current?.offsetHeight || 0;
+    
+    // Calculate maximum allowed positions
+    const maxX = windowSize.width - trackerWidth;
+    const maxY = windowSize.height - trackerHeight;
+    
+    // Ensure position stays within bounds
+    const boundedX = Math.min(Math.max(0, data.x), maxX);
+    const boundedY = Math.min(Math.max(0, data.y), maxY);
+    
+    setPosition({ x: boundedX, y: boundedY });
   };
   
+  // Function to toggle expanded state
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
+  };
+  
+  // Function to determine if expanded content should open upward
+  const shouldOpenUpward = () => {
+    if (!nodeRef.current || !contentRef.current) return false;
+    
+    const trackerRect = nodeRef.current.getBoundingClientRect();
+    const contentHeight = contentRef.current.scrollHeight;
+    const viewportHeight = windowSize.height;
+    
+    // If there's not enough space below, open upward
+    return viewportHeight - trackerRect.bottom < contentHeight + 20; // 20px buffer
   };
   
   return (
@@ -58,12 +89,13 @@ const OrderTracker = () => {
       nodeRef={nodeRef}
       handle=".drag-handle"
       defaultPosition={position}
+      position={position}
       onStop={handleDragStop}
       bounds="body"
     >
       <div 
         ref={nodeRef}
-        className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${isExpanded ? 'w-80' : 'w-64'}`}
+        className={`fixed z-50 transition-all duration-300 ${isExpanded ? 'w-80' : 'w-64'}`}
       >
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Header - Always visible */}
@@ -93,15 +125,33 @@ const OrderTracker = () => {
           
           {/* Expanded Content */}
           {isExpanded && (
-            <div className="p-3 bg-[#FAF5F0]">
+            <div 
+              ref={contentRef}
+              className={`p-3 bg-[#FAF5F0] max-h-60 overflow-y-auto ${shouldOpenUpward() ? 'order-first' : 'order-last'}`}
+            >
               <div className="space-y-2">
                 <div>
                   <div className="text-sm text-[#6B4F36]">Items:</div>
                   <div className="space-y-1 mt-1">
                     {activeOrder.items.map((item, index) => (
-                      <div key={index} className="flex justify-between text-sm">
-                        <span>{item.name} × {item.quantity}</span>
-                        <span>₹{item.price * item.quantity}</span>
+                      <div key={index} className="mb-2">
+                        <div className="flex justify-between text-sm">
+                          <span>{item.name} × {item.quantity}</span>
+                          <span>₹{item.price * item.quantity}</span>
+                        </div>
+                        {/* Show customizations */}
+                        {(item.size || item.temperature || item.flavor || (item.addOns && item.addOns.length > 0)) && (
+                          <div className="text-xs text-[#6B4F36] mt-1">
+                            {item.size && <span className="mr-2">Size: {item.size}</span>}
+                            {item.temperature && <span className="mr-2">Temp: {item.temperature}</span>}
+                            {item.flavor && <span className="mr-2">Flavor: {item.flavor}</span>}
+                            {item.addOns && item.addOns.length > 0 && (
+                              <div className="mt-1">
+                                Add-ons: {item.addOns.map(addon => addon.name).join(', ')}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
