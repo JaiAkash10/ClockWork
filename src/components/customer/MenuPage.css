@@ -1,0 +1,359 @@
+:root {
+  --primary-color: #6B4F4E;
+  --secondary-color: #A07C7C;
+  --accent-color: #E4D4C8;
+  --background-color: #F5F5F5;
+  --text-color: #333333;
+  --white: #ffffff;
+  --light-beige: #F5EBE0;
+  --dark-brown: #4A3B32;
+  --muted-green: #557C55;
+  --heart-red: #e53e3e;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--light-beige);
+}
+
+/* Navbar styles - assuming similar to HomePage.css */
+.navbar {
+  background-color: var(--dark-brown);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-medium);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--light-beige);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--light-beige);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+}
+
+/* Category Tabs */
+.category-wrapper {
+  padding: 1.5rem 2rem;
+  background-color: var(--white);
+  box-shadow: var(--shadow-light);
+}
+
+.category-tabs {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid var(--secondary-color);
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  background-color: transparent;
+  color: var(--secondary-color);
+}
+
+.category-button.active-category {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+.category-button:hover:not(.active-category) {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border-color: var(--accent-color);
+}
+
+/* Product Grid */
+.product-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0; /* Add some padding around the grid */
+}
+
+.product-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* For favorite button positioning */
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-strong);
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--heart-red);
+  padding: 0.25rem;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+.favorite-button:hover {
+  transform: scale(1.1);
+}
+
+.product-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.product-title {
+  font-family: 'Georgia', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-brown);
+  margin-bottom: 0.5rem;
+}
+
+.description-text {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  min-height: 40px; /* Ensure consistent height for description */
+}
+
+.price-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--muted-green);
+  margin-bottom: 1rem;
+}
+
+/* Variant Selector */
+.variant-selector {
+  margin-bottom: 1rem;
+  min-height: 60px; /* Ensure consistent height for variant section */
+}
+
+.variant-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.variant-select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: var(--border-radius-small);
+  font-size: 0.9rem;
+  background-color: var(--white);
+  color: var(--text-color);
+  transition: border-color 0.3s ease;
+}
+
+.variant-select:focus {
+  outline: none;
+  border-color: var(--muted-green);
+}
+
+/* Add-ons Section */
+.addons-section {
+  margin-bottom: 1rem;
+}
+
+.addons-toggle {
+  background: none;
+  border: none;
+  color: var(--muted-green);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.addons-toggle:hover {
+  text-decoration: underline;
+}
+
+.addons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--accent-color);
+}
+
+.addon-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.addon-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--muted-green);
+}
+
+.addon-label {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.addon-price {
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  margin-left: auto;
+}
+
+/* Add to Cart Button */
+.add-to-cart-button {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background-color: var(--muted-green);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: auto; /* Push button to the bottom of the card */
+}
+
+.add-to-cart-button:hover {
+  background-color: #446644; /* Darker green */
+  transform: translateY(-2px);
+}
+
+/* Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--dark-brown);
+  color: var(--light-beige);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-medium);
+  z-index: 1000;
+  font-size: 1rem;
+  opacity: 0;
+  animation: fadeInOutToast 3s ease-in-out forwards;
+}
+
+@keyframes fadeInOutToast {
+  0%, 100% { opacity: 0; transform: translate(-50%, 10px); }
+  10%, 90% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  .category-wrapper {
+    padding: 1rem;
+  }
+  .category-tabs {
+    gap: 0.5rem;
+  }
+  .category-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  .product-grid {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+    gap: 1.5rem;
+  }
+  .product-title {
+    font-size: 1.3rem;
+  }
+  .price-text {
+    font-size: 1.1rem;
+  }
+}

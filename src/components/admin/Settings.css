@@ -1,0 +1,199 @@
+/* Settings.css */
+
+/* Main container for settings page */
+.settings-container {
+  min-height: 100vh;
+  background-color: var(--beige-light); /* Consistent with other dashboards */
+  transition: all 0.3s ease-in-out;
+  padding-bottom: 3rem; /* Increased padding */
+}
+
+/* Admin Navbar - reusing from admin-styles.css if possible, or define here */
+/* .admin-navbar defined in admin-styles.css */
+
+/* Main content area */
+.settings-main-content {
+  padding: 2rem; /* Increased padding for consistency */
+  max-width: 80rem; /* Increased max-width for settings */
+  margin: 0 auto;
+}
+
+.settings-header {
+  font-size: 2.25rem; /* 36px */
+  font-weight: bold;
+  color: var(--dark-brown);
+  margin-bottom: 2rem;
+}
+
+/* Tabs container */
+.settings-tabs-container {
+  background-color: var(--white); /* Consistent with other cards */
+  border-radius: 1rem; /* 16px */
+  box-shadow: var(--shadow-light); /* Consistent shadow */
+  overflow: hidden;
+}
+
+.settings-tabs-nav {
+  display: flex;
+  border-bottom: 2px solid #e5e7eb; /* gray-200 - slightly thicker border */
+  background-color: var(--light-beige); /* Add a subtle background to the tab bar */
+}
+
+.settings-tab-button {
+  padding: 1rem 1.75rem; /* Increased padding */
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600; /* Bolder font */
+  color: var(--dark-brown-muted); /* Muted dark brown for inactive tabs */
+  border-bottom: 3px solid transparent; /* Thicker border for active state */
+  transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+  position: relative;
+  top: 2px; /* Align with the thicker bottom border of the nav */
+}
+
+.settings-tab-button:hover {
+  color: var(--muted-green);
+  background-color: rgba(255, 255, 255, 0.5); /* Subtle hover background */
+}
+
+.settings-tab-button.active {
+  color: var(--muted-green);
+  border-bottom-color: var(--muted-green);
+  background-color: var(--white); /* Ensure active tab stands out */
+  font-weight: 700;
+}
+
+.settings-tab-content {
+  padding: 1.5rem;
+}
+
+/* Section titles within tabs */
+.settings-section-title {
+  font-size: 1.75rem; /* Increased size */
+  font-weight: 700; /* Bolder */
+  color: var(--dark-brown);
+  margin-bottom: 1.5rem; /* Increased margin */
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--light-beige);
+}
+
+/* Form elements styling */
+.settings-form-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .settings-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.settings-form-group label {
+  display: block;
+  color: var(--dark-brown-muted); /* Updated color */
+  margin-bottom: 0.75rem; /* Increased margin */
+  font-weight: 600;
+}
+
+.settings-form-input,
+.settings-form-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.5rem; /* 8px */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.settings-form-input:focus,
+.settings-form-select:focus {
+  outline: none;
+  border-color: var(--muted-green);
+  box-shadow: 0 0 0 2px rgba(85, 124, 85, 0.25); /* Standardized focus ring */
+  background-color: #fff; /* Ensure white background on focus */
+}
+
+/* Checkbox styling */
+.settings-checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.settings-checkbox {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+  color: var(--muted-green);
+  border-radius: 0.25rem; /* 4px */
+  margin-right: 0.5rem;
+}
+
+.settings-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(85, 124, 85, 0.25); /* Standardized focus ring */
+}
+
+.settings-checkbox-label {
+  color: #374151; /* gray-700 */
+}
+
+/* User Accounts Table */
+.settings-user-table-container {
+  overflow-x: auto;
+}
+
+.settings-user-table {
+  min-width: 100%;
+  border-collapse: collapse; /* Use collapse for cleaner lines */
+  border-spacing: 0;
+}
+
+.settings-user-table thead {
+  background-color: var(--light-beige); /* Consistent with other tables */
+  color: var(--dark-brown); /* Consistent with other tables */
+}
+
+.settings-user-table th {
+  padding: 1rem 1.5rem; /* Increased padding */
+  text-align: left;
+  font-size: 0.875rem; /* Slightly larger font */
+  font-weight: 600;
+  color: var(--beige); /* Text color for darker header */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.settings-user-table tbody tr {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb; /* gray-200 */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.settings-user-table tbody tr:hover {
+  background-color: var(--light-beige); /* Lighter beige for hover */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.settings-user-table td {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  font-size: 0.875rem; /* 14px */
+}
+
+.user-name {
+  font-weight: 500;
+  color: var(--dark-brown);
+}
+
+.user-email,
+.user-last-login {
+  color: #4b5563; /* gray-600 */
+}
+
+.user-role-badge {
+  padding: 0.25rem 0.75rem;
+  display: inline-flex;
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.25;
+  font-weight: 600;
+  border-radius: 9999px; /* full */
+}

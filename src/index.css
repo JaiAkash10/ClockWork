@@ -1,3 +1,7 @@
+@import './styles/cafe-styles.css';
+@import './styles/customer-styles.css';
+@import './styles/admin-styles.css';
+
 :root {
   --beige: #FAF5F0;
   --brown: #6B4F36;

@@ -5,6 +5,7 @@ import { MenuProvider } from './context/MenuContext';
 import { OrderProvider } from './context/OrderContext';
 import { UserProvider } from './context/UserContext';
 import { OrderTrackingProvider } from './context/OrderTrackingContext';
+import { CartProvider } from './context/CartContext'; // Import CartProvider
 import OrderTracker from './components/customer/OrderTracker';
 
 // Lazy load components
@@ -27,36 +28,27 @@ const Settings = lazy(() => import('./components/admin/Settings'));
 const NotificationsPage = lazy(() => import('./components/admin/NotificationsPage'));
 
 function App() {
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
-
-  // 🛒 Persist cart updates
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
   return (
     <MenuProvider>
       <OrderProvider>
         <UserProvider>
           <OrderTrackingProvider>
-            <BrowserRouter>
-              <div className="App">
-                <OrderTracker />
-                <Suspense fallback={<div className="loading">Loading...</div>}>
+            <CartProvider> {/* Add CartProvider here */}
+              <BrowserRouter>
+                <div className="App">
+                  <OrderTracker />
+                  <Suspense fallback={<div className="loading">Loading...</div>}>
                   <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/menu" element={<MenuPage cart={cart} setCart={setCart} />} />
-              <Route path="/cart" element={<CartPage cart={cart} setCart={setCart} />} />
+              <Route path="/menu" element={<MenuPage />} />
+              <Route path="/cart" element={<CartPage />} />
               <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/order-history" element={<OrderHistoryPage />} />
               
               {/* Admin Routes */}
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/menu" element={<MenuManagement />} />
               <Route path="/admin/orders" element={<OrderManagement />} />
               <Route path="/admin/customers" element={<CustomerManagement />} />
@@ -68,6 +60,7 @@ function App() {
                 </Suspense>
               </div>
             </BrowserRouter>
+            </CartProvider> {/* Close CartProvider here */}
           </OrderTrackingProvider>
         </UserProvider>
       </OrderProvider>

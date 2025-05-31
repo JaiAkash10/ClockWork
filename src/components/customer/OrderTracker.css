@@ -1,0 +1,204 @@
+:root {
+  --primary-color: #6B4F4E;
+  --secondary-color: #A07C7C;
+  --accent-color: #E4D4C8;
+  --background-color: #F5F5F5;
+  --text-color: #333333;
+  --white: #ffffff;
+  --light-beige: #F5EBE0;
+  --dark-brown: #4A3B32;
+  --muted-green: #557C55;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tracker-wrapper {
+  position: fixed; /* Fixed position for floating */
+  z-index: 1000; /* Ensure it's above other content */
+  background-color: var(--white);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-strong);
+  transition: width 0.3s ease, height 0.3s ease;
+  overflow: hidden; /* Prevent content overflow during transition */
+  border: 1px solid var(--dark-brown);
+}
+
+.tracker-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header - Always visible, acts as drag handle */
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--dark-brown);
+  color: var(--light-beige);
+  cursor: grab; /* Indicate draggable */
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.tracker-header:active {
+  cursor: grabbing;
+}
+
+.tracker-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tracker-icon {
+  font-size: 1.5rem;
+}
+
+.tracker-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tracker-subtitle {
+  font-size: 0.8rem;
+  color: var(--accent-color);
+}
+
+.tracker-timer {
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: var(--muted-green);
+  color: var(--white);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--border-radius-small);
+}
+
+/* Status Bar - Always visible below header */
+.tracker-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--light-beige);
+  font-size: 0.9rem;
+  color: var(--dark-brown);
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.tracker-status {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Expanded Content - Visible when isExpanded is true */
+.tracker-content {
+  padding: 1rem;
+  background-color: var(--white);
+  max-height: 300px; /* Limit height and allow scrolling if needed */
+  overflow-y: auto;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.tracker-collapsed .tracker-content {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+/* For opening upward */
+.tracker-content.tracker-up {
+  /* Styles for when content opens above the header */
+  /* This might require adjusting the main wrapper's position or using absolute positioning for content */
+}
+
+.tracker-items-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.tracker-item-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tracker-item {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--accent-color);
+}
+
+.tracker-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tracker-item-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+.tracker-item-header span:last-child {
+  color: var(--muted-green);
+}
+
+.tracker-customizations {
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+  padding-left: 1rem;
+}
+
+.tracker-customization,
+.tracker-addons {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.tracker-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--dark-brown);
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--primary-color);
+}
+
+.tracker-pickup {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  background-color: var(--light-beige);
+  padding: 0.75rem;
+  border-radius: var(--border-radius-small);
+}
+
+.tracker-pickup-label {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+/* Adjustments for collapsed state width */
+.tracker-collapsed {
+  /* You might want a fixed width when collapsed */
+  /* width: 280px; */ 
+}
+
+.tracker-expanded {
+  /* And a potentially wider width when expanded */
+  /* width: 350px; */
+}

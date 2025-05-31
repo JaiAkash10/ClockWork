@@ -3,6 +3,7 @@ import { useOrderTracking } from '../../context/OrderTrackingContext';
 import Draggable from 'react-draggable';
 import { useLocation } from 'react-router-dom';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import './OrderTracker.css'; // Import the CSS file
 
 const OrderTracker = () => {
   const { 
@@ -93,60 +94,60 @@ const OrderTracker = () => {
       onStop={handleDragStop}
       bounds="body"
     >
-      <div 
+      <div
         ref={nodeRef}
-        className={`fixed z-50 transition-all duration-300 ${isExpanded ? 'w-80' : 'w-64'}`}
+        className={`tracker-wrapper ${isExpanded ? 'tracker-expanded' : 'tracker-collapsed'}`}
       >
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="tracker-container">
           {/* Header - Always visible */}
-          <div 
-            className="bg-[#4A3C31] text-white p-3 flex justify-between items-center cursor-pointer drag-handle"
+          <div
+            className="tracker-header drag-handle"
             onClick={toggleExpand}
           >
-            <div className="flex items-center">
-              <div className="text-xl mr-2">☕</div>
+            <div className="tracker-header-left">
+              <div className="tracker-icon">☕</div>
               <div>
-                <div className="font-medium">Order Tracking</div>
-                <div className="text-xs opacity-80">
+                <div className="tracker-title">Order Tracking</div>
+                <div className="tracker-subtitle">
                   {activeOrder.id.replace('order_', '#')}
                 </div>
               </div>
             </div>
-            <div className="text-sm font-bold bg-[#557C55] px-2 py-1 rounded">
+            <div className="tracker-timer">
               {formattedTime}
             </div>
           </div>
-          
+
           {/* Status Bar */}
-          <div className="bg-[#E6D5C3] px-3 py-1 text-sm flex justify-between items-center">
+          <div className="tracker-status-bar">
             <span>Status:</span>
-            <span className="font-medium capitalize">{activeOrder.status}</span>
+            <span className="tracker-status">{activeOrder.status}</span>
           </div>
-          
+
           {/* Expanded Content */}
           {isExpanded && (
-            <div 
+            <div
               ref={contentRef}
-              className={`p-3 bg-[#FAF5F0] max-h-60 overflow-y-auto ${shouldOpenUpward() ? 'order-first' : 'order-last'}`}
+              className={`tracker-content ${shouldOpenUpward() ? 'tracker-up' : 'tracker-down'}`}
             >
-              <div className="space-y-2">
+              <div className="tracker-items-list">
                 <div>
-                  <div className="text-sm text-[#6B4F36]">Items:</div>
-                  <div className="space-y-1 mt-1">
+                  <div className="tracker-items-label">Items:</div>
+                  <div className="tracker-item-group">
                     {activeOrder.items.map((item, index) => (
-                      <div key={index} className="mb-2">
-                        <div className="flex justify-between text-sm">
+                      <div key={index} className="tracker-item">
+                        <div className="tracker-item-header">
                           <span>{item.name} × {item.quantity}</span>
                           <span>₹{item.price * item.quantity}</span>
                         </div>
                         {/* Show customizations */}
                         {(item.size || item.temperature || item.flavor || (item.addOns && item.addOns.length > 0)) && (
-                          <div className="text-xs text-[#6B4F36] mt-1">
-                            {item.size && <span className="mr-2">Size: {item.size}</span>}
-                            {item.temperature && <span className="mr-2">Temp: {item.temperature}</span>}
-                            {item.flavor && <span className="mr-2">Flavor: {item.flavor}</span>}
+                          <div className="tracker-customizations">
+                            {item.size && <span className="tracker-customization">Size: {item.size}</span>}
+                            {item.temperature && <span className="tracker-customization">Temp: {item.temperature}</span>}
+                            {item.flavor && <span className="tracker-customization">Flavor: {item.flavor}</span>}
                             {item.addOns && item.addOns.length > 0 && (
-                              <div className="mt-1">
+                              <div className="tracker-addons">
                                 Add-ons: {item.addOns.map(addon => addon.name).join(', ')}
                               </div>
                             )}
@@ -156,14 +157,14 @@ const OrderTracker = () => {
                     ))}
                   </div>
                 </div>
-                
-                <div className="flex justify-between pt-2 border-t border-[#E6D5C3] font-medium">
+
+                <div className="tracker-total-row">
                   <span>Total:</span>
                   <span>₹{activeOrder.total}</span>
                 </div>
-                
-                <div className="text-sm">
-                  <div className="text-[#6B4F36]">Pickup Time:</div>
+
+                <div className="tracker-pickup">
+                  <div className="tracker-pickup-label">Pickup Time:</div>
                   <div>{new Date(activeOrder.pickupTime).toLocaleString()}</div>
                 </div>
               </div>

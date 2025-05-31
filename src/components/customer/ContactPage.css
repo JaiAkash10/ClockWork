@@ -1,0 +1,225 @@
+:root {
+  --primary-color: #6B4F4E;
+  --secondary-color: #A07C7C;
+  --accent-color: #E4D4C8;
+  --background-color: #F5F5F5;
+  --text-color: #333333;
+  --white: #ffffff;
+  --light-beige: #F5EBE0;
+  --dark-brown: #4A3B32;
+  --muted-green: #557C55;
+  --error-red: #d9534f;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--light-beige);
+}
+
+/* Navbar styles - assuming similar to HomePage.css and MenuPage.css */
+.navbar {
+  background-color: var(--dark-brown);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-medium);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--light-beige);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--light-beige);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease, border-bottom-color 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active-link {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+}
+
+/* Contact Main Content */
+.contact-main {
+  flex-grow: 1;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-light);
+}
+
+.contact-title {
+  font-family: 'Georgia', serif;
+  font-size: 2.8rem;
+  color: var(--dark-brown);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Form Styling */
+.contact-form {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: var(--border-radius-medium);
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--muted-green);
+  box-shadow: 0 0 0 2px rgba(85, 124, 85, 0.2);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input-error {
+  border-color: var(--error-red) !important;
+}
+
+.error-text {
+  color: var(--error-red);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.submit-button {
+  padding: 0.85rem 1.5rem;
+  background-color: var(--muted-green);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  justify-self: start; /* Align button to the start of the grid cell */
+}
+
+.submit-button:hover {
+  background-color: #446644; /* Darker green */
+  transform: translateY(-2px);
+}
+
+.success-message {
+  background-color: #d1fae5; /* Light green for success */
+  color: #065f46; /* Dark green text */
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-medium);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* Contact Info Section */
+.contact-info {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--accent-color);
+  text-align: center;
+}
+
+.info-title {
+  font-family: 'Georgia', serif;
+  font-size: 1.5rem;
+  color: var(--dark-brown);
+  margin-bottom: 1rem;
+}
+
+.info-text {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.hours {
+  margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  .contact-main {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  .contact-title {
+    font-size: 2.2rem;
+  }
+  .submit-button {
+    width: 100%;
+    justify-self: stretch;
+  }
+}

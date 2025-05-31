@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Custom cafe styles imported in index.css */
+
 .App {
   width: 100%;
   height: 100vh;
@@ -15,4 +14,127 @@
   font-size: 1.5rem;
   color: #4A3C31;
   background: #FAF5F0;
+}
+
+/* Navbar.css content */
+:root {
+  --primary-color: #6B4F4E;
+  --secondary-color: #A07C7C;
+  --accent-color: #E4D4C8;
+  --background-color: #F5F5F5;
+  --text-color: #333333;
+  --white: #ffffff;
+  --light-beige: #F5EBE0;
+  --dark-brown: #4A3B32;
+  --muted-green: #557C55;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  background-color: var(--dark-brown);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow-medium);
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure navbar is above other content */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--light-beige);
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center; /* Align items vertically, including NotificationCenter */
+  gap: 1.5rem;
+}
+
+.navbar-link {
+  color: var(--light-beige);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  position: relative; /* For underline effect */
+  transition: color 0.3s ease;
+}
+
+.navbar-link-hover::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px; /* Adjust position of underline */
+  left: 50%;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navbar-link-hover:hover::after,
+.navbar-link.active::after { /* Assuming 'active' class is added by Router for active link */
+  width: 100%;
+  left: 0;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+  color: var(--accent-color);
+}
+
+/* Styles for NotificationCenter if it's part of Navbar.jsx */
+/* Assuming NotificationCenter has its own styling, but can add basic layout here */
+.notification-center-container { /* Example class for NotificationCenter wrapper */
+  position: relative;
+  /* Add other styling as needed */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar-logo {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+  .navbar-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .navbar-link {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    width: 100%; /* Make links take full width for easier tapping */
+  }
+  .navbar-link-hover::after {
+    bottom: 0; /* Adjust underline for stacked links */
+  }
+  .notification-center-container {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
 }
