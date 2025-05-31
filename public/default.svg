@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#E6D5C3" />
+  <text x="100" y="100" font-family="Arial" font-size="24" fill="#4A3C31" text-anchor="middle" dominant-baseline="middle">Menu Item</text>
+  <path d="M60,140 C60,120 80,120 100,120 C120,120 140,120 140,140" stroke="#4A3C31" stroke-width="3" fill="none" />
+  <circle cx="80" cy="80" r="10" fill="#4A3C31" />
+  <circle cx="120" cy="80" r="10" fill="#4A3C31" />
+</svg>
